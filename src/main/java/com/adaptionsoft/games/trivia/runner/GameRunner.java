@@ -21,8 +21,9 @@ public class GameRunner {
                     System.currentTimeMillis()));
             testOutputFolder.mkdirs();
 
-            final int gameSeed = 4;
             for (int i = 0; i < 1; i++) {
+                final int gameSeed = 4 + 13 * i;
+
                 final File gameOutputFile = new File(testOutputFolder, String.format
                         ("test-%d.txt", gameSeed));
 
