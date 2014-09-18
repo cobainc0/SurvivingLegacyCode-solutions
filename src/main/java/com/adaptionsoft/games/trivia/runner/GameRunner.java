@@ -21,8 +21,10 @@ public class GameRunner {
                     System.currentTimeMillis()));
             testOutputFolder.mkdirs();
 
+            final int gameSeed = 4;
+
             final File gameOutputFile = new File(testOutputFolder, String.format
-                    ("test-%d.txt", 4));
+                    ("test-%d.txt", gameSeed));
 
             System.setOut(new PrintStream(new FileOutputStream(gameOutputFile)));
 
@@ -32,7 +34,7 @@ public class GameRunner {
             aGame.add("Pat");
             aGame.add("Sue");
 
-            Random rand = new Random(4);
+            Random rand = new Random(gameSeed);
 
             do {
                 aGame.roll(rand.nextInt(5) + 1);
