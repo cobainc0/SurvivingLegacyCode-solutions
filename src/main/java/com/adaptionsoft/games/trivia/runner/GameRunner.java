@@ -2,6 +2,9 @@ package com.adaptionsoft.games.trivia.runner;
 
 import com.adaptionsoft.games.uglytrivia.Game;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
@@ -14,6 +17,15 @@ public class GameRunner {
         final PrintStream globalOut = System.out;
 
         try {
+            final File testOutputFolder = new File("test", String.format("%d",
+                    System.currentTimeMillis()));
+            testOutputFolder.mkdirs();
+
+            final File gameOutputFile = new File(testOutputFolder, String.format
+                    ("test-%d.txt", 4));
+
+            System.setOut(new PrintStream(new FileOutputStream(gameOutputFile)));
+
             Game aGame = new Game();
 
             aGame.add("Chet");
@@ -31,6 +43,8 @@ public class GameRunner {
                     notAWinner = aGame.wasCorrectlyAnswered();
                 }
             } while (notAWinner);
+        } catch (FileNotFoundException logged) {
+            logged.printStackTrace();
         } finally {
             System.setOut(globalOut);
         }
