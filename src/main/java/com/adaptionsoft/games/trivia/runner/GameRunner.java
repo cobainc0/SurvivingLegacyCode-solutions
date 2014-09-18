@@ -22,29 +22,30 @@ public class GameRunner {
             testOutputFolder.mkdirs();
 
             final int gameSeed = 4;
+            for (int i = 0; i < 1; i++) {
+                final File gameOutputFile = new File(testOutputFolder, String.format
+                        ("test-%d.txt", gameSeed));
 
-            final File gameOutputFile = new File(testOutputFolder, String.format
-                    ("test-%d.txt", gameSeed));
+                System.setOut(new PrintStream(new FileOutputStream(gameOutputFile)));
 
-            System.setOut(new PrintStream(new FileOutputStream(gameOutputFile)));
+                Game aGame = new Game();
 
-            Game aGame = new Game();
+                aGame.add("Chet");
+                aGame.add("Pat");
+                aGame.add("Sue");
 
-            aGame.add("Chet");
-            aGame.add("Pat");
-            aGame.add("Sue");
+                Random rand = new Random(gameSeed);
 
-            Random rand = new Random(gameSeed);
+                do {
+                    aGame.roll(rand.nextInt(5) + 1);
 
-            do {
-                aGame.roll(rand.nextInt(5) + 1);
-
-                if (rand.nextInt(9) == 7) {
-                    notAWinner = aGame.wrongAnswer();
-                } else {
-                    notAWinner = aGame.wasCorrectlyAnswered();
-                }
-            } while (notAWinner);
+                    if (rand.nextInt(9) == 7) {
+                        notAWinner = aGame.wrongAnswer();
+                    } else {
+                        notAWinner = aGame.wasCorrectlyAnswered();
+                    }
+                } while (notAWinner);
+            }
         } catch (FileNotFoundException logged) {
             logged.printStackTrace();
         } finally {
